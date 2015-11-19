@@ -21,6 +21,14 @@ gulp.task('html', () => {
     }));
 });
 
+gulp.task('scripts', () => {
+  gulp.src('src/*.js')
+    .pipe(gulp.dest('dist'))
+    .pipe(sync.reload({
+      stream: true
+    }));
+});
+
 gulp.task('styles', function () {
   gulp.src('src/*.{scss,less,sass}')
     .pipe(sass().on('error', sass.logError))
@@ -36,7 +44,7 @@ gulp.task('styles', function () {
 //PIPES SRC FILES INTO DIST & WATCHES CHANGES IN SRC
 ///////////////////////////////////////////////////
 
-gulp.task('build', ['styles', 'html']);
+gulp.task('build', ['html', 'scripts', 'styles']);
 
 gulp.task('serve', ['build'], function () {
   sync.init({
@@ -44,6 +52,7 @@ gulp.task('serve', ['build'], function () {
   });
 
   gulp.watch('src/*.{html,jade}', ['html']);
+  gulp.watch('src/*.js', ['scripts']);
   gulp.watch('src/*.{css,scss,sass}', ['styles']);
 });
 
