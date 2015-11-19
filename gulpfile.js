@@ -5,8 +5,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var browserSync = require('browser-sync');
-var autoprefixer = require('gulp-autoprefixer');
-
+var prefix = require('gulp-autoprefixer');
 
 ///////////////////////////
 // HTML CSS & SCRIPTS TASKS
@@ -25,7 +24,8 @@ gulp.task('html', () => {
 gulp.task('styles', function () {
   gulp.src('src/*.{scss,less,sass}')
     .pipe(sass().on('error', sass.logError))
-    .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(sass({outputStyle: 'expanded'}))
+    .pipe(prefix('last 2 versions')) //calls autoprefixer
     .pipe(gulp.dest('dist'))
     .pipe(sync.reload({
     stream: true
