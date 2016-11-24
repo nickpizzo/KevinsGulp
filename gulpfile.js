@@ -30,7 +30,7 @@ gulp.task('scripts', () => {
 });
 
 gulp.task('styles', function () {
-  gulp.src('src/*.{scss,less,sass}')
+  gulp.src('src/*.{css,scss,less,sass}')
     .pipe(sass().on('error', sass.logError))
     .pipe(sass({outputStyle: 'expanded'}))
     .pipe(prefix('last 2 versions')) //calls autoprefixer
