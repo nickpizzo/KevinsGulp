@@ -2,10 +2,11 @@
 // REQUIRED MODULES
 ///////////////////
 
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var browserSync = require('browser-sync');
-var prefix = require('gulp-autoprefixer');
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const browserSync = require('browser-sync');
+const prefix = require('gulp-autoprefixer');
+const imagemin = require('gulp-imagemin');
 
 ///////////////////////////
 // HTML CSS & SCRIPTS TASKS
@@ -13,20 +14,20 @@ var prefix = require('gulp-autoprefixer');
 
 const sync = browserSync.create();
 
-gulp.task('html', () => {
+gulp.task('html', function () {
   gulp.src('src/*.html')
-    .pipe(gulp.dest('dist'))
-    .pipe(sync.reload({
-      stream: true
-    }));
+  .pipe(gulp.dest('dist'))
+  .pipe(sync.reload({
+    stream: true
+  }));
 });
 
-gulp.task('scripts', () => {
+gulp.task('scripts', function () {
   gulp.src('src/*.js')
-    .pipe(gulp.dest('dist'))
-    .pipe(sync.reload({
-      stream: true
-    }));
+  .pipe(gulp.dest('dist'))
+  .pipe(sync.reload({
+    stream: true
+  }));
 });
 
 gulp.task('styles', function () {
@@ -36,16 +37,17 @@ gulp.task('styles', function () {
     .pipe(prefix('last 2 versions')) //calls autoprefixer
     .pipe(gulp.dest('dist'))
     .pipe(sync.reload({
-    stream: true
-  }));
-});
-
-gulp.task('images', () => {
-  gulp.src('src/**/*.{png,jpg,svg}')
-    .pipe(gulp.dest('dist'))
-    .pipe(sync.reload({
       stream: true
     }));
+});
+
+gulp.task('images', function () {
+  gulp.src('src/images/**/*.{png,jpg,svg}')
+  .pipe(imagemin())
+  .pipe(gulp.dest('dist/images'))
+  .pipe(sync.reload({
+    stream: true
+  }));
 });
 
 ////////////////////////////////////////////////////
